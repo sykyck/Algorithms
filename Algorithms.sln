@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicProgramming", "DynamicProgramming\DynamicProgramming.csproj", "{F6DE3E01-0616-4C81-AFD6-09D16DC5B195}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{7869C241-F4EC-4E9F-88FB-3BBED7AE12B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Interview", "Common\Interview.csproj", "{7869C241-F4EC-4E9F-88FB-3BBED7AE12B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
