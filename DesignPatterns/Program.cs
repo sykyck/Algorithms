@@ -1,4 +1,5 @@
 ﻿using DesignPatterns.AbstractFactoryDesignPattern;
+using DesignPatterns.BuilderDesignPattern;
 using DesignPatterns.FactoryDesignPattern;
 using System;
 
@@ -40,6 +41,19 @@ namespace DesignPatterns
             checkbox.Render();   // Rendering a Mac Checkbox
         }
 
+        static void BuilderDesignPattern()
+        {
+            Director director = new Director();
+
+            ICarBuilder sportsBuilder = new SportsCarBuilder();
+            Car sportsCar = director.Construct(sportsBuilder);
+            Console.WriteLine(sportsCar);
+
+            ICarBuilder suvBuilder = new SUVBuilder();
+            Car suvCar = director.Construct(suvBuilder);
+            Console.WriteLine(suvCar);
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Factory Design Pattern Example!");
@@ -47,6 +61,9 @@ namespace DesignPatterns
             Console.WriteLine("!!!!!!!!!!!!!!!");
             Console.WriteLine("Abstract Factory Design Pattern Example!");
             AbstractFactoryDesignPattern();
+            Console.WriteLine("!!!!!!!!!!!!!!!");
+            Console.WriteLine("Builder Design Pattern Example!");
+            BuilderDesignPattern();
         }
     }
 }
