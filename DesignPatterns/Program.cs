@@ -57,17 +57,35 @@ namespace DesignPatterns
 
         static void ProtoTypeDesignPattern()
         {
-            // Original object
-            Employee emp1 = new Employee { Name = "Alice", Department = "HR", Address = new Address { City = "New York" } };
+            var emp1 = new Employee
+            {
+                Name = "Alice",
+                Address = new Address { City = "New York", CopyType = CopyType.Shallow },
+                CopyType = CopyType.Shallow
+            };
+
+            // Shallow copy
+            var emp2 = (Employee)emp1.Clone();
+            emp2.Name = "Bob";
+            emp2.Address.City = "Los Angeles"; // affects both because shallow
+
+            Console.WriteLine("Shallow Copy Test:");
             Console.WriteLine("Original: " + emp1);
+            Console.WriteLine("Shallow Copy: " + emp2);
 
-            // Clone object
-            Employee emp2 = (Employee)emp1.Clone();
-            emp2.Name = "Bob";   // change clone’s name
-            emp2.Address.City = "Los Angeles";  // modifies both p1 and p2's Address!
+            Console.WriteLine("Switching To Deep Copy");
 
-            Console.WriteLine("Shallow Clone: " + emp2);
-            Console.WriteLine("Original after shallow clone: " + emp1);
+            // Switch to deep copy
+            emp1.CopyType = CopyType.Deep;
+            emp1.Address.CopyType = CopyType.Deep;
+
+            var emp3 = (Employee)emp1.Clone();
+            emp3.Name = "Charlie";
+            emp3.Address.City = "Chicago"; // independent copy
+
+            Console.WriteLine("Deep Copy Test:");
+            Console.WriteLine("Original: " + emp1);
+            Console.WriteLine("Deep Copy: " + emp3);
         }
 
         static void Main(string[] args)
