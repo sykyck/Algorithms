@@ -2,6 +2,7 @@
 using DesignPatterns.BuilderDesignPattern;
 using DesignPatterns.FactoryDesignPattern;
 using DesignPatterns.PrototypeDesignPattern;
+using DesignPatterns.SingletonDesignPattern;
 using System;
 
 namespace DesignPatterns
@@ -88,6 +89,18 @@ namespace DesignPatterns
             Console.WriteLine("Deep Copy: " + emp3);
         }
 
+        static void SingletonDesignPattern()
+        {
+            var s1 = Singleton.Instance;
+            s1.DoSomething();
+
+            var s2 = Singleton.Instance;
+
+            Console.WriteLine(ReferenceEquals(s1, s2)
+                ? "Both references point to the same instance"
+                : "Different instances");
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Factory Design Pattern Example!");
@@ -101,6 +114,9 @@ namespace DesignPatterns
             Console.WriteLine("!!!!!!!!!!!!!!!");
             Console.WriteLine("Protype Design Pattern Example!");
             ProtoTypeDesignPattern();
+            Console.WriteLine("!!!!!!!!!!!!!!!");
+            Console.WriteLine("Singleton Design Pattern Example!");
+            SingletonDesignPattern();
         }
     }
 }
