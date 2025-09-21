@@ -1,6 +1,7 @@
 ﻿using DesignPatterns.AbstractFactoryDesignPattern;
 using DesignPatterns.BuilderDesignPattern;
 using DesignPatterns.FactoryDesignPattern;
+using DesignPatterns.PrototypeDesignPattern;
 using System;
 
 namespace DesignPatterns
@@ -54,6 +55,20 @@ namespace DesignPatterns
             Console.WriteLine(suvCar);
         }
 
+        static void ProtoTypeDesignPattern()
+        {
+            // Original object
+            Employee emp1 = new Employee { Name = "Alice", Department = "HR" };
+            Console.WriteLine("Original: " + emp1);
+
+            // Clone object
+            Employee emp2 = (Employee)emp1.Clone();
+            emp2.Name = "Bob";   // change clone’s name
+
+            Console.WriteLine("Clone: " + emp2);
+            Console.WriteLine("Original after clone: " + emp1);
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Factory Design Pattern Example!");
@@ -64,6 +79,9 @@ namespace DesignPatterns
             Console.WriteLine("!!!!!!!!!!!!!!!");
             Console.WriteLine("Builder Design Pattern Example!");
             BuilderDesignPattern();
+            Console.WriteLine("!!!!!!!!!!!!!!!");
+            Console.WriteLine("Protype Design Pattern Example!");
+            ProtoTypeDesignPattern();
         }
     }
 }
