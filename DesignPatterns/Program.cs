@@ -58,15 +58,16 @@ namespace DesignPatterns
         static void ProtoTypeDesignPattern()
         {
             // Original object
-            Employee emp1 = new Employee { Name = "Alice", Department = "HR" };
+            Employee emp1 = new Employee { Name = "Alice", Department = "HR", Address = new Address { City = "New York" } };
             Console.WriteLine("Original: " + emp1);
 
             // Clone object
             Employee emp2 = (Employee)emp1.Clone();
             emp2.Name = "Bob";   // change clone’s name
+            emp2.Address.City = "Los Angeles";  // modifies both p1 and p2's Address!
 
-            Console.WriteLine("Clone: " + emp2);
-            Console.WriteLine("Original after clone: " + emp1);
+            Console.WriteLine("Shallow Clone: " + emp2);
+            Console.WriteLine("Original after shallow clone: " + emp1);
         }
 
         static void Main(string[] args)
