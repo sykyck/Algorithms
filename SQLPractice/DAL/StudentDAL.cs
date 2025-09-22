@@ -1,4 +1,4 @@
-﻿using AdventureData.Models;
+﻿using SQLPractice.Models;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -7,13 +7,13 @@ using System.Data.SqlClient;
 using System.IO;
 
 
-namespace AdventureData.DAL
+namespace SQLPractice.DAL
 {
-    public class StudenttDAL
+    public class StudentDAL
     {
         private readonly IConfiguration _configuration;
         private readonly string _connectionString;
-        public StudenttDAL(IConfiguration configuration)
+        public StudentDAL(IConfiguration configuration)
         {
             this._configuration = configuration;
             this._connectionString = this._configuration.GetConnectionString("Default");
@@ -40,6 +40,38 @@ namespace AdventureData.DAL
                 throw ex;
             }
             return rowsAffected;
+        }
+
+        public List<Student> GetAllStudents()
+        {
+            var lstStudents = new List<Student>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM Students", con);
+                    cmd.CommandType = CommandType.Text;
+                    con.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        lstStudents.Add(new Student
+                        {
+                            StudentId = rdr.GetInt32("StudentId"),
+                            FirstName = rdr.GetString("FirstName"),
+                            LastName = rdr.GetString("LastName"),
+                            DateOfBirth = rdr.GetDateTime("DateOfBirth"),
+                            Email = rdr.GetString("Email"),
+                            IsActive = rdr.GetBoolean("IsActive"),
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return lstStudents;
         }
     }
 }

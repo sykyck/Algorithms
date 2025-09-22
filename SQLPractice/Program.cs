@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
-using AdventureData.DAL;
+using SQLPractice.DAL;
+using SQLPractice.Models;
+using System.Collections.Generic;
 
-namespace AdventureData
+namespace SQLPractice
 {
     class Program
     {
@@ -11,7 +13,16 @@ namespace AdventureData
         static void Main(string[] args)
         {
             GetAppSettingsFile();
-            SeedStudentData();
+            var students = GetStudentsData();
+            if(students.Count != 3)
+            {
+               SeedStudentData();
+            }
+            var departments = GetDepartments();
+            if(departments.Count != 5)
+            {
+               SeedDepartmentData();
+            }
             //ShowAdventureDepartments();
             Console.WriteLine("Press any key to stop.");
             Console.ReadKey();
@@ -27,21 +38,27 @@ namespace AdventureData
         
         static void SeedStudentData()
         {
-            var studentDAL = new StudenttDAL(_iconfiguration);
+            var studentDAL = new StudentDAL(_iconfiguration);
             var rowsAffected = studentDAL.SeedStudents();
             Console.WriteLine($"✅ Script executed. Rows affected: {rowsAffected}");
         }
-        static void ShowAdventureDepartments()
+
+        static IList<Student> GetStudentsData()
+        {
+            var studentDAL = new StudentDAL(_iconfiguration);
+            return studentDAL.GetAllStudents();
+        }
+
+        static void SeedDepartmentData()
         {
             var deptDAL = new DepartmentDAL(_iconfiguration);
-            var lstDepartment = deptDAL.GetAllDepartments();
-            lstDepartment.ForEach(item =>
-            {
-                Console.WriteLine($"DeptID: {item.DepartmentID}" +
-                    $" Name: {item.Name}" +
-                    $" Grp Name: {item.GroupName}" +
-                    $" Date: {item.ModifiedDate.ToShortDateString()}");
-            });            
+            var rowsAffected = deptDAL.SeedDepartments();
+            Console.WriteLine($"✅ Script executed. Rows affected: {rowsAffected}");
+        }
+        static IList<Department> GetDepartments()
+        {
+            var deptDAL = new DepartmentDAL(_iconfiguration);
+            return deptDAL.GetAllDepartments();           
         }
     }
 }
