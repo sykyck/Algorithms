@@ -100,6 +100,8 @@ namespace SQLPractice.DAL
                             DepartmentName = rdr.GetString("DepartmentName"),
                             SemesterFees = rdr.GetInt32("SemesterFees"),
                             FeeRank = rdr.GetInt64("FeeRank"),
+                            FeeDenseRank = rdr.GetInt64("FeeDenseRank"),
+                            RowNumber = rdr.GetInt64("RowNumber")
                         };
                         lstStudents.Add(resultRow);
                     }
