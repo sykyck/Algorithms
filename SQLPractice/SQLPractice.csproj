@@ -28,6 +28,9 @@
     <None Update="SQL\StoredProcedures\GetAllStudents.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="SQL\StoredProcedures\GetStudentsRankedBySemesterFees.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

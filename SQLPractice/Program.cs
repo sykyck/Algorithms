@@ -4,6 +4,7 @@ using System.IO;
 using SQLPractice.DAL;
 using SQLPractice.Models;
 using System.Collections.Generic;
+using SQLPractice.Utilities;
 
 namespace SQLPractice
 {
@@ -23,9 +24,34 @@ namespace SQLPractice
             {
                SeedDepartmentData();
             }
-            //ShowAdventureDepartments();
-            Console.WriteLine("Press any key to stop.");
-            Console.ReadKey();
+
+
+            bool running = true;
+            while (running)
+            {
+                Console.WriteLine("\n===== MENU =====");
+                Console.WriteLine("1 - Show Students with Department & Fee Rank");
+                Console.WriteLine("Q - Quit");
+                Console.Write("Enter your choice: ");
+
+                var input = Console.ReadKey(intercept: true).KeyChar; // reads a single key
+                Console.WriteLine(); // for spacing
+
+                switch (input)
+                {
+                    case '1':
+                        GetStudentsRankedBySemesterFees();
+                        break;
+                    case 'q':
+                    case 'Q':
+                        running = false;
+                        break;
+                    default:
+                        Console.WriteLine("❌ Invalid option. Try again.");
+                        break;
+                }
+            }
+
         }
 
         static void GetAppSettingsFile()
@@ -47,6 +73,13 @@ namespace SQLPractice
         {
             var studentDAL = new StudentDAL(_iconfiguration);
             return studentDAL.GetAllStudents();
+        }
+
+        static void GetStudentsRankedBySemesterFees()
+        {
+            var studentDAL = new StudentDAL(_iconfiguration);
+            IList<dynamic> result = studentDAL.GetStudentsRankedBySemesterFees();
+            TablePrinter.PrintTable(result);
         }
 
         static void SeedDepartmentData()

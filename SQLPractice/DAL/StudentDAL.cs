@@ -77,6 +77,40 @@ namespace SQLPractice.DAL
             }
             return lstStudents;
         }
+
+        public List<dynamic> GetStudentsRankedBySemesterFees()
+        {
+            var lstStudents = new List<dynamic>();
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    string scriptPath = Path.Combine("SQL", "StoredProcedures", "GetStudentsRankedBySemesterFees.sql");
+                    string script = File.ReadAllText(scriptPath);
+                    SqlCommand cmd = new SqlCommand(script, con);
+                    cmd.CommandType = CommandType.Text;
+                    con.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    while (rdr.Read())
+                    {
+                        dynamic resultRow = new {
+                            StudentId = rdr.GetInt32("StudentId"),
+                            FirstName = rdr.GetString("FirstName"),
+                            LastName = rdr.GetString("LastName"),
+                            DepartmentName = rdr.GetString("DepartmentName"),
+                            SemesterFees = rdr.GetInt32("SemesterFees"),
+                            FeeRank = rdr.GetInt64("FeeRank"),
+                        };
+                        lstStudents.Add(resultRow);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return lstStudents;
+        }
     }
 }
 
