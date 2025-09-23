@@ -60,6 +60,8 @@ namespace SQLPractice.DAL
                         lstStudents.Add(new Student
                         {
                             StudentId = rdr.GetInt32("StudentId"),
+                            SemesterFees = rdr.GetInt32("SemesterFees"),
+                            DepartmentId = rdr.GetInt32("DepartmentId"),
                             FirstName = rdr.GetString("FirstName"),
                             LastName = rdr.GetString("LastName"),
                             DateOfBirth = rdr.GetDateTime("DateOfBirth"),

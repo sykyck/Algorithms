@@ -14,7 +14,7 @@ namespace SQLPractice
         {
             GetAppSettingsFile();
             var students = GetStudentsData();
-            if(students.Count != 3)
+            if(students.Count != 5)
             {
                SeedStudentData();
             }

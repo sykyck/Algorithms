@@ -8,6 +8,10 @@ namespace SQLPractice.Models
     {
         public int StudentId { get; set; }
 
+        public int SemesterFees { get; set; }
+
+        public int DepartmentId { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
