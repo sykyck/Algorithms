@@ -48,7 +48,9 @@ namespace SQLPractice.DAL
             {
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM Departments", con);
+                    string scriptPath = Path.Combine("SQL", "StoredProcedures", "GetAllDepartments.sql");
+                    string script = File.ReadAllText(scriptPath);
+                    SqlCommand cmd = new SqlCommand(script, con);
                     cmd.CommandType = CommandType.Text;
                     con.Open();
                     SqlDataReader rdr = cmd.ExecuteReader();
@@ -56,7 +58,7 @@ namespace SQLPractice.DAL
                     {
                         lstDepartments.Add(new Department
                         {
-                            DepartmentID = rdr.GetInt32("DepartmentID"),
+                            DepartmentId = rdr.GetInt32("DepartmentId"),
                             Name = rdr.GetString("Name"),
                             ModifiedDate = rdr.GetDateTime("ModifiedDate")
                         });

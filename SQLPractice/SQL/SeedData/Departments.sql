@@ -10,7 +10,6 @@ BEGIN TRY
     (
         DepartmentId INT IDENTITY(1,1) PRIMARY KEY,
         Name NVARCHAR(100) NOT NULL,
-        GroupName NVARCHAR(100) NOT NULL,
         ModifiedDate DATETIME NOT NULL DEFAULT GETDATE()
     );
 

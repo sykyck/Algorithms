@@ -49,7 +49,9 @@ namespace SQLPractice.DAL
             {
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM Students", con);
+                    string scriptPath = Path.Combine("SQL", "StoredProcedures", "GetAllStudents.sql");
+                    string script = File.ReadAllText(scriptPath);
+                    SqlCommand cmd = new SqlCommand(script, con);
                     cmd.CommandType = CommandType.Text;
                     con.Open();
                     SqlDataReader rdr = cmd.ExecuteReader();
