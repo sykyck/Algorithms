@@ -31,6 +31,8 @@ namespace SQLPractice
             {
                 Console.WriteLine("\n===== MENU =====");
                 Console.WriteLine("1 - Show Students with Department & Fee Rank");
+                Console.WriteLine("2 - Add Bulk Students Data");
+                Console.WriteLine("3 - Delete Bulk Students Data");
                 Console.WriteLine("Q - Quit");
                 Console.Write("Enter your choice: ");
 
@@ -41,6 +43,12 @@ namespace SQLPractice
                 {
                     case '1':
                         GetStudentsRankedBySemesterFees();
+                        break;
+                    case '2':
+                        AddBulkStudentsData();
+                        break;
+                    case '3':
+                        DeleteBulkStudentsData();
                         break;
                     case 'q':
                     case 'Q':
@@ -80,6 +88,20 @@ namespace SQLPractice
             var studentDAL = new StudentDAL(_iconfiguration);
             IList<dynamic> result = studentDAL.GetStudentsRankedBySemesterFees();
             TablePrinter.PrintTable(result);
+        }
+
+        static void AddBulkStudentsData()
+        {
+            var studentDAL = new StudentDAL(_iconfiguration);
+            int rowsAffected = studentDAL.AddBulkStudents();
+            Console.WriteLine($"✅ Script executed. Rows affected: {rowsAffected}");
+        }
+
+        static void DeleteBulkStudentsData()
+        {
+            var studentDAL = new StudentDAL(_iconfiguration);
+            int rowsAffected = studentDAL.DeleteBulkStudents();
+            Console.WriteLine($"✅ Script executed. Rows affected: {rowsAffected}");
         }
 
         static void SeedDepartmentData()
