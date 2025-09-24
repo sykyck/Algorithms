@@ -33,6 +33,7 @@ namespace SQLPractice
                 Console.WriteLine("1 - Show Students with Department & Fee Rank");
                 Console.WriteLine("2 - Add Bulk Students Data");
                 Console.WriteLine("3 - Delete Bulk Students Data");
+                Console.WriteLine("4 - Get Students Data By Optimized Query");
                 Console.WriteLine("Q - Quit");
                 Console.Write("Enter your choice: ");
 
@@ -49,6 +50,9 @@ namespace SQLPractice
                         break;
                     case '3':
                         DeleteBulkStudentsData();
+                        break;
+                    case '4':
+                        GetStudentsDataByOptimizedQuery();
                         break;
                     case 'q':
                     case 'Q':
@@ -87,6 +91,13 @@ namespace SQLPractice
         {
             var studentDAL = new StudentDAL(_iconfiguration);
             IList<dynamic> result = studentDAL.GetStudentsRankedBySemesterFees();
+            TablePrinter.PrintTable(result);
+        }
+
+        static void GetStudentsDataByOptimizedQuery()
+        {
+            var studentDAL = new StudentDAL(_iconfiguration);
+            IList<dynamic> result = studentDAL.GetStudentsByOptimizedQuery();
             TablePrinter.PrintTable(result);
         }
 

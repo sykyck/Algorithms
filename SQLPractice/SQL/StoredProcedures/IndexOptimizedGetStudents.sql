@@ -23,7 +23,7 @@ BEGIN TRY
     FROM dbo.Students s
     INNER JOIN dbo.Departments d ON s.DepartmentId = d.DepartmentId
     WHERE d.Name = 'Computer Science'
-      AND s.SemesterFees > 40000;
+      AND s.SemesterFees > 59900;
 
     -- Step 3: Drop the indexes to reset environment
     IF EXISTS (SELECT 1 FROM sys.indexes WHERE name = 'IX_Departments_Name')

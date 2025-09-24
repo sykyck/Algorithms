@@ -169,7 +169,7 @@ namespace SQLPractice.DAL
             {
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
-                    string scriptPath = Path.Combine("SQL", "StoredProcedures", "GetStudentsRankedBySemesterFees.sql");
+                    string scriptPath = Path.Combine("SQL", "StoredProcedures", "IndexOptimizedGetStudents.sql");
                     string script = File.ReadAllText(scriptPath);
                     SqlCommand cmd = new SqlCommand(script, con);
                     cmd.CommandType = CommandType.Text;
@@ -184,9 +184,6 @@ namespace SQLPractice.DAL
                             LastName = rdr.GetString("LastName"),
                             DepartmentName = rdr.GetString("DepartmentName"),
                             SemesterFees = rdr.GetInt32("SemesterFees"),
-                            FeeRank = rdr.GetInt64("FeeRank"),
-                            FeeDenseRank = rdr.GetInt64("FeeDenseRank"),
-                            RowNumber = rdr.GetInt64("RowNumber")
                         };
                         lstStudents.Add(resultRow);
                     }
