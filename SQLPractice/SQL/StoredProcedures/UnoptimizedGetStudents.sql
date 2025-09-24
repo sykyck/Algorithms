@@ -6,7 +6,7 @@ BEGIN TRY
     BEGIN TRANSACTION;
 
     -- Run unoptimized query
-    SELECT 
+    WITH HighFeesStudents AS (SELECT 
         s.StudentId, 
         s.FirstName, 
         s.LastName, 
@@ -15,7 +15,9 @@ BEGIN TRY
     FROM dbo.Students s
     INNER JOIN dbo.Departments d ON s.DepartmentId = d.DepartmentId
     WHERE d.Name = 'Computer Science'
-      AND s.SemesterFees > 59900;
+      AND s.SemesterFees > 59900)
+
+    SELECT * FROM HighFeesStudents;
 
     COMMIT TRANSACTION;
 END TRY
