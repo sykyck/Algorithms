@@ -162,9 +162,10 @@ namespace SQLPractice.DAL
             return lstStudents;
         }
 
-        public List<dynamic> GetStudentsByOptimizedQuery()
+        public long GetStudentsByOptimizedQuery()
         {
             var lstStudents = new List<dynamic>();
+            long elapsedMs = 0;
             try
             {
                 using (SqlConnection con = new SqlConnection(_connectionString))
@@ -175,6 +176,7 @@ namespace SQLPractice.DAL
                     cmd.CommandType = CommandType.Text;
                     con.Open();
                     SqlDataReader rdr = cmd.ExecuteReader();
+                    var sw = System.Diagnostics.Stopwatch.StartNew();
                     while (rdr.Read())
                     {
                         dynamic resultRow = new
@@ -187,13 +189,53 @@ namespace SQLPractice.DAL
                         };
                         lstStudents.Add(resultRow);
                     }
+                    sw.Stop();
+                    elapsedMs = sw.ElapsedMilliseconds;
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return lstStudents;
+            return elapsedMs;
+        }
+
+        public long GetStudentsByUnoptimizedQuery()
+        {
+            var lstStudents = new List<dynamic>();
+            long elapsedMs = 0;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    string scriptPath = Path.Combine("SQL", "StoredProcedures", "UnoptimizedGetStudents.sql");
+                    string script = File.ReadAllText(scriptPath);
+                    SqlCommand cmd = new SqlCommand(script, con);
+                    cmd.CommandType = CommandType.Text;
+                    con.Open();
+                    SqlDataReader rdr = cmd.ExecuteReader();
+                    var sw = System.Diagnostics.Stopwatch.StartNew();
+                    while (rdr.Read())
+                    {
+                        dynamic resultRow = new
+                        {
+                            StudentId = rdr.GetInt32("StudentId"),
+                            FirstName = rdr.GetString("FirstName"),
+                            LastName = rdr.GetString("LastName"),
+                            DepartmentName = rdr.GetString("DepartmentName"),
+                            SemesterFees = rdr.GetInt32("SemesterFees"),
+                        };
+                        lstStudents.Add(resultRow);
+                    }
+                    sw.Stop();
+                    elapsedMs = sw.ElapsedMilliseconds;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return elapsedMs;
         }
 
     }

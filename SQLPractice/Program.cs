@@ -34,6 +34,7 @@ namespace SQLPractice
                 Console.WriteLine("2 - Add Bulk Students Data");
                 Console.WriteLine("3 - Delete Bulk Students Data");
                 Console.WriteLine("4 - Get Students Data By Optimized Query");
+                Console.WriteLine("5 - Get Students Data By Unoptimized Query");
                 Console.WriteLine("Q - Quit");
                 Console.Write("Enter your choice: ");
 
@@ -53,6 +54,9 @@ namespace SQLPractice
                         break;
                     case '4':
                         GetStudentsDataByOptimizedQuery();
+                        break;
+                    case '5':
+                        GetStudentsDataByUnoptimizedQuery();
                         break;
                     case 'q':
                     case 'Q':
@@ -97,8 +101,15 @@ namespace SQLPractice
         static void GetStudentsDataByOptimizedQuery()
         {
             var studentDAL = new StudentDAL(_iconfiguration);
-            IList<dynamic> result = studentDAL.GetStudentsByOptimizedQuery();
-            TablePrinter.PrintTable(result);
+            long elapsedTime = studentDAL.GetStudentsByOptimizedQuery();
+            Console.WriteLine($"Elapsed Time For Optimized Query: {elapsedTime}"); ;
+        }
+
+        static void GetStudentsDataByUnoptimizedQuery()
+        {
+            var studentDAL = new StudentDAL(_iconfiguration);
+            long elapsedTime = studentDAL.GetStudentsByUnoptimizedQuery();
+            Console.WriteLine($"Elapsed Time For Unoptimized Query: {elapsedTime}"); ;
         }
 
         static void AddBulkStudentsData()

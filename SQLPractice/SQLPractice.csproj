@@ -40,6 +40,9 @@
     <None Update="SQL\StoredProcedures\IndexOptimizedGetStudents.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="SQL\StoredProcedures\UnoptimizedGetStudents.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
