@@ -40,12 +40,6 @@
     <None Update="SQL\StoredProcedures\DeleteBulkStudentRecords.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SQL\StoredProcedures\GetAllDepartments.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="SQL\StoredProcedures\GetAllStudents.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="SQL\StoredProcedures\GetAllTableRowsCount.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
