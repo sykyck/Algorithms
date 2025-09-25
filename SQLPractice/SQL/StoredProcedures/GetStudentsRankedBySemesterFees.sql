@@ -4,6 +4,7 @@
     s.LastName,
     d.Name AS DepartmentName,
     s.SemesterFees,
+    s.PayableFees,
     DENSE_RANK() OVER (ORDER BY s.SemesterFees DESC) AS FeeDenseRank,
     RANK() OVER (ORDER BY s.SemesterFees DESC) AS FeeRank,
     ROW_NUMBER () OVER (ORDER BY s.SemesterFees DESC) AS RowNumber

@@ -90,40 +90,32 @@ namespace SQLPractice.DAL
             return rowsDeleted;
         }
 
-        public List<Student> GetAllStudents()
+        public int UpdateStudentPayableFees()
         {
-            var lstStudents = new List<Student>();
+            int rowsAffected = 0;
             try
             {
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
-                    string scriptPath = Path.Combine("SQL", "StoredProcedures", "GetAllStudents.sql");
+                    // Load SQL script with cursor logic
+                    string scriptPath = Path.Combine("SQL", "StoredProcedures", "UpdatePayableFeesWithCursor.sql");
                     string script = File.ReadAllText(scriptPath);
-                    SqlCommand cmd = new SqlCommand(script, con);
-                    cmd.CommandType = CommandType.Text;
-                    con.Open();
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    while (rdr.Read())
+
+                    using (SqlCommand cmd = new SqlCommand(script, con))
                     {
-                        lstStudents.Add(new Student
-                        {
-                            StudentId = rdr.GetInt32("StudentId"),
-                            SemesterFees = rdr.GetInt32("SemesterFees"),
-                            DepartmentId = rdr.GetInt32("DepartmentId"),
-                            FirstName = rdr.GetString("FirstName"),
-                            LastName = rdr.GetString("LastName"),
-                            DateOfBirth = rdr.GetDateTime("DateOfBirth"),
-                            Email = rdr.GetString("Email"),
-                            IsActive = rdr.GetBoolean("IsActive"),
-                        });
+                        cmd.CommandType = CommandType.Text;
+                        con.Open();
+
+                        rowsAffected = cmd.ExecuteNonQuery();
+                        Console.WriteLine($"✅ Update executed successfully. Rows affected: {rowsAffected}");
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                Console.WriteLine($"❌ Error: {ex.Message}");
             }
-            return lstStudents;
+            return rowsAffected;
         }
 
         public List<dynamic> GetStudentsRankedBySemesterFees()
@@ -147,6 +139,7 @@ namespace SQLPractice.DAL
                             LastName = rdr.GetString("LastName"),
                             DepartmentName = rdr.GetString("DepartmentName"),
                             SemesterFees = rdr.GetInt32("SemesterFees"),
+                            PayableFees = rdr.GetInt32("PayableFees"),
                             FeeRank = rdr.GetInt64("FeeRank"),
                             FeeDenseRank = rdr.GetInt64("FeeDenseRank"),
                             RowNumber = rdr.GetInt64("RowNumber")

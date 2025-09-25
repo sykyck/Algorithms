@@ -10,6 +10,8 @@ namespace SQLPractice.Models
 
         public int SemesterFees { get; set; }
 
+        public int PayableFees { get; set; }
+
         public int DepartmentId { get; set; }
 
         public string FirstName { get; set; }

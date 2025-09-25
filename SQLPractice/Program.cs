@@ -14,15 +14,22 @@ namespace SQLPractice
         static void Main(string[] args)
         {
             GetAppSettingsFile();
-            var students = GetStudentsData();
-            if(students.Count != 5)
+            (int scholarShipCount, int studentCount, int departmentCount, int studentScholarshipsCount) = GetAllTableRowsCount();
+            if(studentCount != 5)
             {
                SeedStudentData();
             }
-            var departments = GetDepartments();
-            if(departments.Count != 5)
+            if(departmentCount != 5)
             {
                SeedDepartmentData();
+            }
+            if (scholarShipCount != 2)
+            {
+               SeedScholarshipData();
+            }
+            if(studentScholarshipsCount != 5)
+            {
+               SeedStudentScholarshipsData();
             }
 
 
@@ -35,6 +42,7 @@ namespace SQLPractice
                 Console.WriteLine("3 - Delete Bulk Students Data");
                 Console.WriteLine("4 - Get Students Data By Optimized Query");
                 Console.WriteLine("5 - Get Students Data By Unoptimized Query");
+                Console.WriteLine("6 - Update Students Payable Fees");
                 Console.WriteLine("Q - Quit");
                 Console.Write("Enter your choice: ");
 
@@ -57,6 +65,9 @@ namespace SQLPractice
                         break;
                     case '5':
                         GetStudentsDataByUnoptimizedQuery();
+                        break;
+                    case '6':
+                        UpdateStudentsPayableFeesData();
                         break;
                     case 'q':
                     case 'Q':
@@ -85,10 +96,10 @@ namespace SQLPractice
             Console.WriteLine($"✅ Script executed. Rows affected: {rowsAffected}");
         }
 
-        static IList<Student> GetStudentsData()
+        static (int, int, int, int) GetAllTableRowsCount()
         {
-            var studentDAL = new StudentDAL(_iconfiguration);
-            return studentDAL.GetAllStudents();
+            var commonDAL = new CommonDAL(_iconfiguration);
+            return commonDAL.GetAllTableRowsCount();
         }
 
         static void GetStudentsRankedBySemesterFees()
@@ -126,16 +137,32 @@ namespace SQLPractice
             Console.WriteLine($"✅ Script executed. Rows affected: {rowsAffected}");
         }
 
+        static void UpdateStudentsPayableFeesData()
+        {
+            var studentDAL = new StudentDAL(_iconfiguration);
+            int rowsAffected = studentDAL.UpdateStudentPayableFees();
+            Console.WriteLine($"✅ Script executed. Rows affected: {rowsAffected}");
+        }
+
         static void SeedDepartmentData()
         {
             var deptDAL = new DepartmentDAL(_iconfiguration);
             var rowsAffected = deptDAL.SeedDepartments();
             Console.WriteLine($"✅ Script executed. Rows affected: {rowsAffected}");
         }
-        static IList<Department> GetDepartments()
+
+        static void SeedScholarshipData()
         {
-            var deptDAL = new DepartmentDAL(_iconfiguration);
-            return deptDAL.GetAllDepartments();           
+            var scholarshipDAL = new ScholarshipDAL(_iconfiguration);
+            var rowsAffected = scholarshipDAL.SeedScholarships();
+            Console.WriteLine($"✅ Script executed. Rows affected: {rowsAffected}");
+        }
+
+        static void SeedStudentScholarshipsData()
+        {
+            var scholarshipDAL = new ScholarshipDAL(_iconfiguration);
+            var rowsAffected = scholarshipDAL.SeedStudentScholarships();
+            Console.WriteLine($"✅ Script executed. Rows affected: {rowsAffected}");
         }
     }
 }
