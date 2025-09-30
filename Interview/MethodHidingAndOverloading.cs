@@ -27,15 +27,4 @@ namespace Interview
             Console.WriteLine("Derived2-Method");
         }
     }
-
-    public class MethodHidingAndOverloading
-    {
-        public static void Main(string[] args)
-        {
-            BaseClass bc = new DerivedClass1();
-            bc.Method();
-            DerivedClass1 dc = new DerivedClass2();
-            dc.Method();
-        }
-    }
 }

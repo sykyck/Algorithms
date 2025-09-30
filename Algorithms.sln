@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36511.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicProgramming", "DynamicProgramming\DynamicProgramming.csproj", "{F6DE3E01-0616-4C81-AFD6-09D16DC5B195}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DesignPatterns", "DesignPatterns\DesignPatterns.csproj", "{A31C661B-CECC-4F95-AB5F-935F420E6A21}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLPractice", "SQLPractice\SQLPractice.csproj", "{2D860655-B32D-415E-AE8E-EF1CB1B9F40D}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "fullstackreactwebapp.client", "FullstackReactWebApp\fullstackreactwebapp.client\fullstackreactwebapp.client.esproj", "{33C93809-A3BA-A53E-1638-3EAFD87B3243}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullstackReactWebApp.Server", "FullstackReactWebApp\FullstackReactWebApp.Server\FullstackReactWebApp.Server.csproj", "{F29EDA9A-B0E6-4813-8E03-5E4A4BDF4318}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,16 @@ Global
 		{2D860655-B32D-415E-AE8E-EF1CB1B9F40D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D860655-B32D-415E-AE8E-EF1CB1B9F40D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D860655-B32D-415E-AE8E-EF1CB1B9F40D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33C93809-A3BA-A53E-1638-3EAFD87B3243}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33C93809-A3BA-A53E-1638-3EAFD87B3243}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33C93809-A3BA-A53E-1638-3EAFD87B3243}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{33C93809-A3BA-A53E-1638-3EAFD87B3243}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33C93809-A3BA-A53E-1638-3EAFD87B3243}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33C93809-A3BA-A53E-1638-3EAFD87B3243}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{F29EDA9A-B0E6-4813-8E03-5E4A4BDF4318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F29EDA9A-B0E6-4813-8E03-5E4A4BDF4318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F29EDA9A-B0E6-4813-8E03-5E4A4BDF4318}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F29EDA9A-B0E6-4813-8E03-5E4A4BDF4318}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
