@@ -18,6 +18,7 @@ namespace Interview
         {
             BasicConcepts basicConcepts = new BasicConcepts();
             basicConcepts.valueTypeAndReferenceType();
+            basicConcepts.testRefOutAndInParameters();
         }
         public static void Main(string[] args)
         {
