@@ -1,18 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './App.css';
-
-interface Forecast {
-    date: string;
-    temperatureC: number;
-    temperatureF: number;
-    summary: string;
-}
+import { useDispatch, useSelector } from 'react-redux';
+import type { AppDispatch, RootState } from './redux/store';
+import { fetchWeatherForecasts } from './redux/slices/weather/actions';
 
 function App() {
-    const [forecasts, setForecasts] = useState<Forecast[]>();
+    const dispatch = useDispatch<AppDispatch>();
+    const forecasts = useSelector((state: RootState) => state.common.weatherSlice.forecasts);
 
     useEffect(() => {
-        populateWeatherData();
+        dispatch(fetchWeatherForecasts());
     }, []);
 
     const contents = forecasts === undefined
@@ -45,14 +42,6 @@ function App() {
             {contents}
         </div>
     );
-
-    async function populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        if (response.ok) {
-            const data = await response.json();
-            setForecasts(data);
-        }
-    }
 }
 
 export default App;

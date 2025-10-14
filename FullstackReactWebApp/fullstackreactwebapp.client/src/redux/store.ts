@@ -1,10 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { supplierReducer } from '../Supplier/Slices';
-import { commonReducer } from './Slices';
+import { commonReducer } from './slices';
 
 const combinedReducer = combineReducers({
   common: commonReducer,
-  supplier: supplierReducer
 });
 
 const rootReducer = (
@@ -19,7 +17,7 @@ const rootReducer = (
 
 const store = configureStore({
   reducer: rootReducer,
-  devTools: config.mode === 'dev',
+  devTools: true,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false
