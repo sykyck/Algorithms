@@ -1,3 +1,4 @@
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FullstackReactWebApp.Server.Controllers
@@ -18,6 +19,7 @@ namespace FullstackReactWebApp.Server.Controllers
             _logger = logger;
         }
 
+        [Authorize] // ✅ Requires JWT token
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
