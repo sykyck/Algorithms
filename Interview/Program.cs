@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -72,13 +73,30 @@ namespace Interview
             Console.WriteLine("Monitor Main Thread Ended");
         }
 
+        static void PrintWithoutDuplicateItems()
+        {
+            IEnumerable<string> result = LinqQueries.GetDataSourceWithoutDuplicates();
+            foreach(string x in result)
+            {
+                Console.WriteLine($"Group key {x}");
+            }
+        }
+
+        static void DifferenceBetweenFirstOrDefaultAndFirst()
+        {
+            LinqQueries.DifferenceBetweenFirstOrDefaultAndFirst();
+        }
+
         public static void Main(string[] args)
         {
-            MethodHidingAndOverloading();
-            TestBasicConcepts();
-            PrintNumbersUsingManualThreads();
-            LockThreadSychronizationTechnique();
-            MonitorThreadSychronizationTechnique();
+            //MethodHidingAndOverloading();
+            //TestBasicConcepts();
+            //PrintNumbersUsingManualThreads();
+            //LockThreadSychronizationTechnique();
+            //MonitorThreadSychronizationTechnique();
+
+            PrintWithoutDuplicateItems();
+            DifferenceBetweenFirstOrDefaultAndFirst();
         }
     }
 }
