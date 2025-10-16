@@ -54,19 +54,6 @@ builder.Services.AddAuthentication(options =>
             Console.WriteLine("Authentication failed:");
             Console.WriteLine(context.Exception);
             return Task.CompletedTask;
-        },
-        OnMessageReceived = context =>
-        {
-            var authHeader = context.Request.Headers["Authorization"].ToString();
-            Console.WriteLine("Authorization header: " + authHeader);
-
-            if (!string.IsNullOrEmpty(authHeader) && authHeader.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            {
-                var parts = authHeader.Split(' ');
-                if (parts.Length == 2)
-                    context.Token = parts[1].Trim(); // just the JWT
-            }
-            return Task.CompletedTask;
         }
     };
 });
