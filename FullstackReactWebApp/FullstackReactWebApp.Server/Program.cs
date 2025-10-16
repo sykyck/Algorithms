@@ -1,3 +1,4 @@
+using FullstackReactWebApp.Server.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -52,6 +53,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+// Add your middleware here before others
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.MapControllers();
 

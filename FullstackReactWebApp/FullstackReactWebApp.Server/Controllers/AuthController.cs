@@ -35,8 +35,8 @@ namespace FullstackReactWebApp.Server.Controllers
 
             var claims = new[]
             {
-            new Claim(ClaimTypes.Name, username)
-        };
+               new Claim(ClaimTypes.Name, username)
+            };
 
             var token = new JwtSecurityToken(
                 issuer: _config["Jwt:Issuer"],

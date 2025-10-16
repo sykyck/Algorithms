@@ -31,5 +31,11 @@ namespace FullstackReactWebApp.Server.Controllers
             })
             .ToArray();
         }
+
+        [HttpGet("error")]
+        public IActionResult ThrowError()
+        {
+            throw new Exception("Something went wrong!");
+        }
     }
 }
