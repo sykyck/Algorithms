@@ -15,6 +15,8 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "fullstackreactwebapp.client
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullstackReactWebApp.Server", "FullstackReactWebApp\FullstackReactWebApp.Server\FullstackReactWebApp.Server.csproj", "{F29EDA9A-B0E6-4813-8E03-5E4A4BDF4318}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryClassification", "BinaryClassification\BinaryClassification.csproj", "{E8B3A6D0-6CD9-4031-88B9-056B89FAF96D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{F29EDA9A-B0E6-4813-8E03-5E4A4BDF4318}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F29EDA9A-B0E6-4813-8E03-5E4A4BDF4318}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F29EDA9A-B0E6-4813-8E03-5E4A4BDF4318}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8B3A6D0-6CD9-4031-88B9-056B89FAF96D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8B3A6D0-6CD9-4031-88B9-056B89FAF96D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8B3A6D0-6CD9-4031-88B9-056B89FAF96D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8B3A6D0-6CD9-4031-88B9-056B89FAF96D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
