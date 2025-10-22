@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DotNetSparkCSV": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

@@ -87,6 +87,58 @@ namespace Interview
             LinqQueries.DifferenceBetweenFirstOrDefaultAndFirst();
         }
 
+        static void DisposeResource()
+        {
+            Console.WriteLine($"{DateTime.Now:HH:mm:ss.fff} - === Using IDisposable (deterministic) ===");
+            using (var r1 = new Resource("R1"))
+            {
+                Console.WriteLine($"{DateTime.Now:HH:mm:ss.fff} - Doing work with R1...");
+                Thread.Sleep(500); // simulate work
+            } // Dispose automatically called here
+
+            Console.WriteLine($"\n{DateTime.Now:HH:mm:ss.fff} - === Not using Dispose (finalizer only) ===");
+            var r2 = new Resource("R2");
+            Console.WriteLine($"{DateTime.Now:HH:mm:ss.fff} - Doing work with R2...");
+            Thread.Sleep(500); // simulate work
+            r2 = null; // object eligible for GC
+
+            // Force garbage collection for demo purposes
+            Console.WriteLine($"{DateTime.Now:HH:mm:ss.fff} - Forcing garbage collection...");
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            Console.WriteLine($"{DateTime.Now:HH:mm:ss.fff} - Program finished.");
+        }
+
+        static void TestDelegates()
+        {
+            Console.WriteLine("=== Custom Delegate ===");
+            Delegates.Notify notifier = Delegates.EmailNotification;
+            notifier("Hello using custom delegate!");
+            notifier += Delegates.SmsNotification;
+            notifier("Hello from multicast custom delegate!");
+
+            Console.WriteLine("\n=== Action Delegate ===");
+            // Action: void return, can take parameters
+            Action<string> actionNotifier = msg => Console.WriteLine($"Action: {msg}");
+            actionNotifier("Hello using Action delegate!");
+
+            Console.WriteLine("\n=== Func Delegate ===");
+            // Func: returns a value, last generic type is return type
+            Func<int, int, int> addFunc = (a, b) => a + b;
+            int sum = addFunc(5, 7);
+            Console.WriteLine($"Func: 5 + 7 = {sum}");
+
+            Console.WriteLine("\n=== Predicate Delegate ===");
+            // Predicate: takes input, returns bool
+            Predicate<int> isEven = num => num % 2 == 0;
+            Console.WriteLine($"Predicate: Is 10 even? {isEven(10)}");
+
+            Console.WriteLine("\n=== Delegate as Parameter ===");
+            Delegates.SendNotification("Testing delegate as parameter", Delegates.EmailNotification);
+            Delegates.SendNotification("Another test", msg => Console.WriteLine($"Lambda as delegate: {msg}"));
+        }
+
         public static void Main(string[] args)
         {
             //MethodHidingAndOverloading();
@@ -95,8 +147,10 @@ namespace Interview
             //LockThreadSychronizationTechnique();
             //MonitorThreadSychronizationTechnique();
 
-            PrintWithoutDuplicateItems();
-            DifferenceBetweenFirstOrDefaultAndFirst();
+            //PrintWithoutDuplicateItems();
+            //DifferenceBetweenFirstOrDefaultAndFirst();
+            //DisposeResource();
+            TestDelegates();
         }
     }
 }

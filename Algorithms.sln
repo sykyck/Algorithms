@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullstackReactWebApp.Server
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryClassification", "BinaryClassification\BinaryClassification.csproj", "{E8B3A6D0-6CD9-4031-88B9-056B89FAF96D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetSparkCSV", "DotNetSparkCSV\DotNetSparkCSV.csproj", "{B610B2DB-C0A9-4792-B651-94482F185A6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentimentAnalysisDemo", "SentimentAnalysisDemo\SentimentAnalysisDemo.csproj", "{C21429B6-3CC0-4485-9B08-78F512970707}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,14 @@ Global
 		{E8B3A6D0-6CD9-4031-88B9-056B89FAF96D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8B3A6D0-6CD9-4031-88B9-056B89FAF96D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8B3A6D0-6CD9-4031-88B9-056B89FAF96D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B610B2DB-C0A9-4792-B651-94482F185A6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B610B2DB-C0A9-4792-B651-94482F185A6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B610B2DB-C0A9-4792-B651-94482F185A6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B610B2DB-C0A9-4792-B651-94482F185A6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C21429B6-3CC0-4485-9B08-78F512970707}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C21429B6-3CC0-4485-9B08-78F512970707}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C21429B6-3CC0-4485-9B08-78F512970707}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C21429B6-3CC0-4485-9B08-78F512970707}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
