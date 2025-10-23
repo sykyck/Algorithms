@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "DotnetKafka": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

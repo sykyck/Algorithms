@@ -141,15 +141,15 @@ namespace Interview
 
         public static void Main(string[] args)
         {
-            //MethodHidingAndOverloading();
-            //TestBasicConcepts();
-            //PrintNumbersUsingManualThreads();
-            //LockThreadSychronizationTechnique();
-            //MonitorThreadSychronizationTechnique();
+            MethodHidingAndOverloading();
+            TestBasicConcepts();
+            PrintNumbersUsingManualThreads();
+            LockThreadSychronizationTechnique();
+            MonitorThreadSychronizationTechnique();
 
-            //PrintWithoutDuplicateItems();
-            //DifferenceBetweenFirstOrDefaultAndFirst();
-            //DisposeResource();
+            PrintWithoutDuplicateItems();
+            DifferenceBetweenFirstOrDefaultAndFirst();
+            DisposeResource();
             TestDelegates();
         }
     }
