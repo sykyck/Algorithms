@@ -1,5 +1,7 @@
-﻿using OpenTelemetry.Resources;
+﻿using OpenTelemetry.Logs;
+using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using ServiceA.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +29,22 @@ builder.Services.AddOpenTelemetry()
             });
     });
 
+builder.Logging.AddConsole();
+builder.Logging.AddOpenTelemetry(options =>
+{
+    options.IncludeFormattedMessage = true;
+    options.IncludeScopes = true;
+
+    // Export logs via OTLP to collector
+    options.AddOtlpExporter(o =>
+    {
+        o.Endpoint = new Uri("http://otel-collector:4317");
+    });
+});
+
 var app = builder.Build();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.MapControllers();
 
