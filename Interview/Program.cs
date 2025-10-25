@@ -139,18 +139,26 @@ namespace Interview
             Delegates.SendNotification("Another test", msg => Console.WriteLine($"Lambda as delegate: {msg}"));
         }
 
+        static async void CallWithOrWithoutSyncronizationContext()
+        {
+            Console.WriteLine($"Main thread ID: {Thread.CurrentThread.ManagedThreadId}");
+            await SynchronizationContextExample.ExampleWithoutSynchronizationContext();
+            await SynchronizationContextExample.ExampleWithCustomContext();
+        }
+
         public static void Main(string[] args)
         {
-            MethodHidingAndOverloading();
-            TestBasicConcepts();
-            PrintNumbersUsingManualThreads();
-            LockThreadSychronizationTechnique();
-            MonitorThreadSychronizationTechnique();
+            //MethodHidingAndOverloading();
+            //TestBasicConcepts();
+            //PrintNumbersUsingManualThreads();
+            //LockThreadSychronizationTechnique();
+            //MonitorThreadSychronizationTechnique();
 
-            PrintWithoutDuplicateItems();
-            DifferenceBetweenFirstOrDefaultAndFirst();
-            DisposeResource();
-            TestDelegates();
+            //PrintWithoutDuplicateItems();
+            //DifferenceBetweenFirstOrDefaultAndFirst();
+            //DisposeResource();
+            //TestDelegates();
+            CallWithOrWithoutSyncronizationContext();
         }
     }
 }

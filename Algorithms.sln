@@ -23,6 +23,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SentimentAnalysisDemo", "Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetKafka", "DotnetKafka\DotnetKafka.csproj", "{A140E3AA-8748-4F04-921F-8425E8F65A5F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenTelemetry", "OpenTelemetry", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		OpenTelemetry\docker-compose.yml = OpenTelemetry\docker-compose.yml
+		Readme.txt = Readme.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceB", "OpenTelemetry\ServiceB\ServiceB.csproj", "{69732749-42F4-411C-9AFD-0E092CB5615B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceA", "OpenTelemetry\ServiceA\ServiceA.csproj", "{A93E408F-0861-C599-4CA6-01CC9BAFEF9A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "otel-config", "otel-config", "{568F30BF-0D50-49DF-BAAA-415B49334712}"
+	ProjectSection(SolutionItems) = preProject
+		OpenTelemetry\otel-collector-config.yaml = OpenTelemetry\otel-collector-config.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,9 +86,22 @@ Global
 		{A140E3AA-8748-4F04-921F-8425E8F65A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A140E3AA-8748-4F04-921F-8425E8F65A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A140E3AA-8748-4F04-921F-8425E8F65A5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69732749-42F4-411C-9AFD-0E092CB5615B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69732749-42F4-411C-9AFD-0E092CB5615B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69732749-42F4-411C-9AFD-0E092CB5615B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69732749-42F4-411C-9AFD-0E092CB5615B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A93E408F-0861-C599-4CA6-01CC9BAFEF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A93E408F-0861-C599-4CA6-01CC9BAFEF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A93E408F-0861-C599-4CA6-01CC9BAFEF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A93E408F-0861-C599-4CA6-01CC9BAFEF9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{69732749-42F4-411C-9AFD-0E092CB5615B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{A93E408F-0861-C599-4CA6-01CC9BAFEF9A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{568F30BF-0D50-49DF-BAAA-415B49334712} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93BF9D78-1C39-4912-8A57-B8F130C8EEAE}
