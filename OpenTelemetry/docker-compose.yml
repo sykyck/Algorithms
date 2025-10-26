@@ -11,9 +11,12 @@ services:
       - DOTNET_USE_POLLING_FILE_WATCHER=1
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - OTEL_SERVICE_NAME=ServiceA
+      - OTEL_EXPORTER_OTLP_INSECURE=true
     depends_on:
       - serviceb
       - otel-collector
+    networks:
+      - observability
 
   serviceb:
     build: ./ServiceB
@@ -24,21 +27,36 @@ services:
       - DOTNET_USE_POLLING_FILE_WATCHER=1
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
       - OTEL_SERVICE_NAME=ServiceB
+      - OTEL_EXPORTER_OTLP_INSECURE=true
     depends_on:
       - otel-collector
+    networks:
+      - observability
 
   otel-collector:
-    image: otel/opentelemetry-collector-contrib:latest
+    image: otel/opentelemetry-collector:0.38.0
+    container_name: otel-collector
+    depends_on:
+      - jaeger
     command: ["--config=/etc/otel-collector-config/otel-collector-config.yaml"]
     volumes:
-      # Mount folder (not single file)
+       # Mount folder (not single file)
       - ./otel-config:/etc/otel-collector-config:ro
     ports:
-      - "4317:4317"   # OTLP gRPC
-      - "55681:55681" # OTLP HTTP
+      - "4317:4317"  # OTLP gRPC receiver
+      - "4318:4318"  # OTLP HTTP receiver
+    networks:
+      - observability
 
   jaeger:
-    image: jaegertracing/all-in-one:1.35
+    image: jaegertracing/all-in-one:1.56
+    container_name: jaeger
     ports:
-      - "16686:16686" # UI
-      - "9411:9411"   # Zipkin endpoint for OTEL exporter
+        - "16686:16686" # UI
+    networks:
+        - observability
+    environment:
+        - COLLECTOR_OTLP_ENABLED=true
+
+networks:
+  observability:

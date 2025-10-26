@@ -27,6 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenTelemetry", "OpenTeleme
 	ProjectSection(SolutionItems) = preProject
 		OpenTelemetry\docker-compose.yml = OpenTelemetry\docker-compose.yml
 		Readme.txt = Readme.txt
+		OpenTelemetry\Readme.txt = OpenTelemetry\Readme.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceB", "OpenTelemetry\ServiceB\ServiceB.csproj", "{69732749-42F4-411C-9AFD-0E092CB5615B}"
@@ -35,7 +36,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceA", "OpenTelemetry\S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "otel-config", "otel-config", "{568F30BF-0D50-49DF-BAAA-415B49334712}"
 	ProjectSection(SolutionItems) = preProject
-		OpenTelemetry\otel-collector-config.yaml = OpenTelemetry\otel-collector-config.yaml
+		OpenTelemetry\otel-config\otel-collector-config.yaml = OpenTelemetry\otel-config\otel-collector-config.yaml
 	EndProjectSection
 EndProject
 Global

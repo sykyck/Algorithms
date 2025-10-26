@@ -10,10 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+// Add HttpClient for outgoing calls to ServiceB
+builder.Services.AddHttpClient();
+
 // Add OpenTelemetry
 builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource =>
-        resource.AddService("ServiceA") // or ServiceB
+        resource.AddService(
+            serviceName: "ServiceB",
+            serviceVersion: "1.0.0",
+            serviceInstanceId: Environment.MachineName
+        )
     )
     .WithTracing(tracing =>
     {
@@ -23,22 +30,10 @@ builder.Services.AddOpenTelemetry()
             .AddOtlpExporter(o =>
             {
                 // Point to your collector (use service name in Docker)
-                o.Endpoint = new Uri("http://otel-collector:4317");
+                o.Endpoint = new Uri(Environment.GetEnvironmentVariable("OTEL_EXPORTER_OTLP_ENDPOINT") ?? "http://otel-collector:4317");
+                o.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.Grpc;
             });
     });
-
-builder.Logging.AddConsole();
-builder.Logging.AddOpenTelemetry(options =>
-{
-    options.IncludeFormattedMessage = true;
-    options.IncludeScopes = true;
-
-    // Export logs via OTLP to collector
-    options.AddOtlpExporter(o =>
-    {
-        o.Endpoint = new Uri("http://otel-collector:4317");
-    });
-});
 
 var app = builder.Build();
 
