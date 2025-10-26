@@ -1,0 +1,91 @@
+version: "3.8"
+
+networks:
+  sw-net:
+    driver: bridge
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.11
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+    networks:
+      - sw-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200 || exit 1"]
+      interval: 5s
+      retries: 10
+
+  oap:
+    image: apache/skywalking-oap-server:9.6.0
+    environment:
+      SW_STORAGE: elasticsearch
+      SW_STORAGE_ES_CLUSTER_NODES: elasticsearch:9200
+      SW_HEALTH_CHECKER_IGNORE_UNKNOWN_HEALTH: "true"
+      SW_OTEL_RECEIVER: "default"
+      SW_OTEL_RECEIVER_ENABLED_HANDLERS: "otlp"
+    ports:
+      - "11800:11800"   # gRPC
+      - "12800:12800"   # REST
+    networks:
+      - sw-net
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  ui:
+    image: apache/skywalking-ui:9.1.0
+    environment:
+      SW_OAP_ADDRESS: "oap:12800"
+    ports:
+      - "8080:8080"
+    networks:
+      - sw-net
+    depends_on:
+      - oap
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.67.0
+    command: ["--config=/etc/otel-collector-config/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-config:/etc/otel-collector-config:ro
+    ports:
+      - "4317:4317"   # OTLP gRPC for services
+      - "55681:55681" # OTLP HTTP
+    networks:
+      - sw-net
+    depends_on:
+      - oap
+
+  servicea:
+    build: ./ServiceA
+    ports:
+      - "5000:5000"
+    environment:
+      - SERVICEB_URL=http://serviceb:5001
+      - ASPNETCORE_URLS=http://+:5000
+      - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
+      - OTEL_SERVICE_NAME=ServiceA
+      - OTEL_EXPORTER_OTLP_INSECURE=true
+    networks:
+      - sw-net
+    depends_on:
+      - serviceb
+      - otel-collector
+
+  serviceb:
+    build: ./ServiceB
+    ports:
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_URLS=http://+:5001
+      - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
+      - OTEL_SERVICE_NAME=ServiceB
+      - OTEL_EXPORTER_OTLP_INSECURE=true
+    networks:
+      - sw-net
+    depends_on:
+      - otel-collector

@@ -26,7 +26,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenTelemetry", "OpenTelemetry", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
 		OpenTelemetry\docker-compose.yml = OpenTelemetry\docker-compose.yml
-		Readme.txt = Readme.txt
 		OpenTelemetry\Readme.txt = OpenTelemetry\Readme.txt
 	EndProjectSection
 EndProject
@@ -38,6 +37,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "otel-config", "otel-config"
 	ProjectSection(SolutionItems) = preProject
 		OpenTelemetry\otel-config\otel-collector-config.yaml = OpenTelemetry\otel-config\otel-collector-config.yaml
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OpenTelemetrySkyWalker", "OpenTelemetrySkyWalker", "{DA7DC945-04E8-4980-A5F4-0744DEE3B54A}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "otel-config", "otel-config", "{8DA36157-18F7-458E-AC21-35402843AABF}"
+	ProjectSection(SolutionItems) = preProject
+		otel-collector-config.yaml = otel-collector-config.yaml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceA", "ServiceA\ServiceA.csproj", "{B29E2E06-F557-4A48-BE7D-CD4C074B2B84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceB", "ServiceB\ServiceB.csproj", "{4C024F13-3F06-46AA-8207-26B86CD0C8BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -95,6 +108,14 @@ Global
 		{A93E408F-0861-C599-4CA6-01CC9BAFEF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A93E408F-0861-C599-4CA6-01CC9BAFEF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A93E408F-0861-C599-4CA6-01CC9BAFEF9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B29E2E06-F557-4A48-BE7D-CD4C074B2B84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B29E2E06-F557-4A48-BE7D-CD4C074B2B84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B29E2E06-F557-4A48-BE7D-CD4C074B2B84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B29E2E06-F557-4A48-BE7D-CD4C074B2B84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C024F13-3F06-46AA-8207-26B86CD0C8BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C024F13-3F06-46AA-8207-26B86CD0C8BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C024F13-3F06-46AA-8207-26B86CD0C8BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C024F13-3F06-46AA-8207-26B86CD0C8BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +124,9 @@ Global
 		{69732749-42F4-411C-9AFD-0E092CB5615B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{A93E408F-0861-C599-4CA6-01CC9BAFEF9A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{568F30BF-0D50-49DF-BAAA-415B49334712} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{8DA36157-18F7-458E-AC21-35402843AABF} = {DA7DC945-04E8-4980-A5F4-0744DEE3B54A}
+		{B29E2E06-F557-4A48-BE7D-CD4C074B2B84} = {DA7DC945-04E8-4980-A5F4-0744DEE3B54A}
+		{4C024F13-3F06-46AA-8207-26B86CD0C8BF} = {DA7DC945-04E8-4980-A5F4-0744DEE3B54A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93BF9D78-1C39-4912-8A57-B8F130C8EEAE}
