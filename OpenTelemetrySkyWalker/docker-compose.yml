@@ -1,62 +1,60 @@
-version: "3.8"
-
-networks:
-  sw-net:
-    driver: bridge
-
+﻿version: "3.8"
 services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.11
     environment:
-      - discovery.type=single-node
-      - ES_JAVA_OPTS=-Xms512m -Xmx512m
-    ports:
-      - "9200:9200"
-    networks:
-      - sw-net
+      discovery.type: single-node
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    networks: [sw-net]
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:9200 || exit 1"]
-      interval: 5s
+      test: ["CMD-SHELL","curl -f http://localhost:9200 || exit 1"]
+      interval: 10s
       retries: 10
 
   oap:
-    image: apache/skywalking-oap-server:9.6.0
+    image: apache/skywalking-oap-server:10.1.0
     environment:
       SW_STORAGE: elasticsearch
       SW_STORAGE_ES_CLUSTER_NODES: elasticsearch:9200
       SW_HEALTH_CHECKER_IGNORE_UNKNOWN_HEALTH: "true"
-      SW_OTEL_RECEIVER: "default"
-      SW_OTEL_RECEIVER_ENABLED_HANDLERS: "otlp"
+      # Remove OTLP configurations since we're using SkyAPM native protocol
+      SW_CORE_GRPC_HOST: 0.0.0.0
+      SW_CORE_GRPC_PORT: 11800
+      SW_CORE_REST_HOST: 0.0.0.0
+      SW_CORE_REST_PORT: 12800
+    
+      # Log analysis configuration
+      SW_LOG_ANALYZER_ENABLED: "true"
+      SW_LOG_ANALYZER_LAL_FILES: "default"
+      SW_LOG_ANALYZER_JSON_PARSER_ENABLED: "true"
+    
+      # Log collection configuration
+      SW_RECEIVER_LOG_ENABLED: "true"
+      SW_RECEIVER_LOG_DEFAULT_HANDLERS: "json"
+      SW_RECEIVER_LOG_REST_ENABLED: "true"
+      SW_RECEIVER_LOG_REST_HOST: 0.0.0.0
+      SW_RECEIVER_LOG_REST_PORT: 12800
+      SW_RECEIVER_LOG_REST_CONTEXT_PATH: "/"
+    
+      # Debug logging
+      SW_LOGGING_LEVEL: DEBUG
+
     ports:
-      - "11800:11800"   # gRPC
-      - "12800:12800"   # REST
-    networks:
-      - sw-net
+      - "11800:11800"   # gRPC (SkyWalking native protocol)
+      - "12800:12800"   # REST/UI
+    networks: [sw-net]
     depends_on:
       elasticsearch:
         condition: service_healthy
 
   ui:
-    image: apache/skywalking-ui:9.1.0
+    image: apache/skywalking-ui:10.1.0
     environment:
-      SW_OAP_ADDRESS: "oap:12800"
+      SW_OAP_ADDRESS: http://oap:12800
+      SW_HEALTH_CHECKER: "false"
     ports:
       - "8080:8080"
-    networks:
-      - sw-net
-    depends_on:
-      - oap
-
-  otel-collector:
-    image: otel/opentelemetry-collector-contrib:0.67.0
-    command: ["--config=/etc/otel-collector-config/otel-collector-config.yaml"]
-    volumes:
-      - ./otel-config:/etc/otel-collector-config:ro
-    ports:
-      - "4317:4317"   # OTLP gRPC for services
-      - "55681:55681" # OTLP HTTP
-    networks:
-      - sw-net
+    networks: [sw-net]
     depends_on:
       - oap
 
@@ -65,27 +63,31 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - SERVICEB_URL=http://serviceb:5001
-      - ASPNETCORE_URLS=http://+:5000
-      - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
-      - OTEL_SERVICE_NAME=ServiceA
-      - OTEL_EXPORTER_OTLP_INSECURE=true
-    networks:
-      - sw-net
+      ASPNETCORE_URLS: http://+:5000
+      SERVICEB_URL: http://serviceb:5001
+      SKYWALKING__ENABLED: "true"
+      SkyWalking__Enable: "true"
+      SkyWalking__ServiceName: "ServiceA"
+      SkyWalking__ServiceInstanceName: "ServiceA-Instance-1"
+      SkyWalking__Transport__gRPC__Servers: "oap:11800"
+      SkyWalking__Logging__Level: "Debug"
+      # Add these explicit environment variables
+    networks: [sw-net]
     depends_on:
-      - serviceb
-      - otel-collector
+      - oap
 
   serviceb:
     build: ./ServiceB
     ports:
       - "5001:5001"
     environment:
-      - ASPNETCORE_URLS=http://+:5001
-      - OTEL_EXPORTER_OTLP_ENDPOINT=otel-collector:4317
-      - OTEL_SERVICE_NAME=ServiceB
-      - OTEL_EXPORTER_OTLP_INSECURE=true
-    networks:
-      - sw-net
+      ASPNETCORE_URLS: http://+:5001
+      # REMOVE ALL OTEL ENVIRONMENT VARIABLES  
+      # SkyAPM uses the skyapm.json config file instead
+    networks: [sw-net]
     depends_on:
-      - otel-collector
+      - oap
+
+networks:
+  sw-net:
+    driver: bridge
