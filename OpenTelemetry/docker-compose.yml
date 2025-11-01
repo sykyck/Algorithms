@@ -7,14 +7,18 @@ services:
       - "5000:5000"
     environment:
       - SERVICEB_URL=http://serviceb:5001
+      - SERVICE_NAME=ServiceA
+      - TEMPO_URL=http://tempo:4317
+      - LOKI_URL=http://loki:3100
       - ASPNETCORE_URLS=http://+:5000
       - DOTNET_USE_POLLING_FILE_WATCHER=1
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
-      - OTEL_SERVICE_NAME=ServiceA
-      - OTEL_EXPORTER_OTLP_INSECURE=true
     depends_on:
-      - serviceb
-      - otel-collector
+      serviceb:
+        condition: service_started
+      loki:
+        condition: service_healthy
+      tempo:
+        condition: service_started
     networks:
       - observability
 
@@ -23,40 +27,93 @@ services:
     ports:
       - "5001:5001"
     environment:
+      - SERVICE_NAME=ServiceB
+      - TEMPO_URL=http://tempo:4317
+      - LOKI_URL=http://loki:3100
       - ASPNETCORE_URLS=http://+:5001
       - DOTNET_USE_POLLING_FILE_WATCHER=1
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
-      - OTEL_SERVICE_NAME=ServiceB
-      - OTEL_EXPORTER_OTLP_INSECURE=true
     depends_on:
-      - otel-collector
+      loki:
+        condition: service_healthy
+      tempo:
+        condition: service_started
     networks:
       - observability
 
-  otel-collector:
-    image: otel/opentelemetry-collector:0.38.0
-    container_name: otel-collector
-    depends_on:
-      - jaeger
-    command: ["--config=/etc/otel-collector-config/otel-collector-config.yaml"]
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
     volumes:
-       # Mount folder (not single file)
-      - ./otel-config:/etc/otel-collector-config:ro
+      - ./prometheus:/etc/prometheus:ro
+    networks:
+      - observability
+    depends_on:
+      - servicea
+      - serviceb
+
+  tempo:
+    image: grafana/tempo:latest
+    container_name: tempo
+    command: [ "-config.file=/etc/tempo/tempo.yaml" ]
+    volumes:
+      - ./tempo:/etc/tempo:ro
+      - ./tempo-data:/tmp/tempo
     ports:
-      - "4317:4317"  # OTLP gRPC receiver
-      - "4318:4318"  # OTLP HTTP receiver
+      - "3200:3200"
+      - "4317:4317"
+      - "4318:4318"
     networks:
       - observability
 
-  jaeger:
-    image: jaegertracing/all-in-one:1.56
-    container_name: jaeger
+  loki:
+    image: grafana/loki:2.9.0
+    container_name: loki
     ports:
-        - "16686:16686" # UI
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki:/etc/loki:ro
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3100/ready || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
     networks:
-        - observability
+      - observability
+
+  grafana:
+    image: grafana/grafana:10.0.0
+    container_name: grafana
+    ports:
+      - "3000:3000"
     environment:
-        - COLLECTOR_OTLP_ENABLED=true
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_FEATURE_TOGGLES_ENABLE=tempoSearch tempoBackendSearch
+    depends_on:
+      loki:
+        condition: service_healthy
+      prometheus:
+        condition: service_started
+      tempo:
+        condition: service_started
+    networks:
+      - observability
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+volumes:
+  grafana-storage:
+  tempo-data:
 
 networks:
   observability:

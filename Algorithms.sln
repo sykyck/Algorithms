@@ -52,6 +52,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceA", "OpenTelemetrySk
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceB", "OpenTelemetrySkyWalker\ServiceB\ServiceB.csproj", "{6A21EC4C-A8ED-6F1E-CF0D-2C053DDD44F9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "prometheus", "prometheus", "{E1871A53-D94C-4D15-97C7-5EDEAF57FCEB}"
+	ProjectSection(SolutionItems) = preProject
+		prometheus.yml = prometheus.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tempo", "tempo", "{8790C5D6-9C35-4893-8738-ADFC80F27500}"
+	ProjectSection(SolutionItems) = preProject
+		OpenTelemetry\tempo\tempo.yaml = OpenTelemetry\tempo\tempo.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "loki", "loki", "{C3F5FB62-B3ED-418F-B58D-88A7052805A2}"
+	ProjectSection(SolutionItems) = preProject
+		OpenTelemetry\loki\local-config.yaml = OpenTelemetry\loki\local-config.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +142,9 @@ Global
 		{8DA36157-18F7-458E-AC21-35402843AABF} = {DA7DC945-04E8-4980-A5F4-0744DEE3B54A}
 		{AA7CF246-5475-B708-53FF-F5438AE7E1D9} = {DA7DC945-04E8-4980-A5F4-0744DEE3B54A}
 		{6A21EC4C-A8ED-6F1E-CF0D-2C053DDD44F9} = {DA7DC945-04E8-4980-A5F4-0744DEE3B54A}
+		{E1871A53-D94C-4D15-97C7-5EDEAF57FCEB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{8790C5D6-9C35-4893-8738-ADFC80F27500} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{C3F5FB62-B3ED-418F-B58D-88A7052805A2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93BF9D78-1C39-4912-8A57-B8F130C8EEAE}
