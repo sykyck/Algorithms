@@ -1,5 +1,6 @@
-Name,Age,Country
-Alice,30,USA
-Bob,40,Canada
-Charlie,25,UK
-David,35,India
+Region,Sales
+East,200
+West,150
+North,300
+South,250
+East,100
