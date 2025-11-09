@@ -2,12 +2,12 @@
 
 namespace Common
 {
-    public class PalindromeWithSpaces
+    public static class PalindromeWithSpaces
     {
-        public void CheckIfStringPalindrome()
+        public static void CheckIfStringPalindrome()
         {
             Console.WriteLine("Hello Mono World");
-            string test = "aabbcbbaa";
+            string test = "aabb    cbbaa";
             char[] testArray = test.ToCharArray();
             int arrayLength = testArray.Length;
             int firstPartLastIndex = (testArray.Length / 2) - 1;

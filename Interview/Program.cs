@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Xml.Linq;
 
 namespace Interview
 {
@@ -146,6 +147,15 @@ namespace Interview
             await SynchronizationContextExample.ExampleWithCustomContext();
         }
 
+        static void GetInnerJoinResult()
+        {
+            var result = LinqQueries.GetInnerJoinResult();
+            foreach(var resultRow in result)
+            {
+                Console.WriteLine($"Value of EmployeeId:-{resultRow.EmployeeId}, EmployeeName:-{resultRow.Name}, Department Location:{resultRow.Location}");
+            }
+        }
+
         public static void Main(string[] args)
         {
             //MethodHidingAndOverloading();
@@ -159,6 +169,7 @@ namespace Interview
             //DisposeResource();
             //TestDelegates();
             CallWithOrWithoutSyncronizationContext();
+            GetInnerJoinResult();
         }
     }
 }
