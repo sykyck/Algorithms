@@ -152,7 +152,16 @@ namespace Interview
             var result = LinqQueries.GetInnerJoinResult();
             foreach(var resultRow in result)
             {
-                Console.WriteLine($"Value of EmployeeId:-{resultRow.EmployeeId}, EmployeeName:-{resultRow.Name}, Department Location:{resultRow.Location}");
+                Console.WriteLine($"Value of EmployeeId:-{resultRow.EmployeeId}, EmployeeName:-{resultRow.Name}, DepartmentName:-{resultRow.DepartmentName}, Department Location:{resultRow.Location}");
+            }
+        }
+
+        static void GetLeftOuterJoinResult()
+        {
+            var result = LinqQueries.GetLeftOuterJoinResult();
+            foreach (var resultRow in result)
+            {
+                Console.WriteLine($"Value of EmployeeId:-{resultRow.EmployeeId}, EmployeeName:-{resultRow.Name}, DepartmentName:-{resultRow.DepartmentName}, Department Location:{resultRow.Location}");
             }
         }
 
@@ -170,6 +179,7 @@ namespace Interview
             //TestDelegates();
             CallWithOrWithoutSyncronizationContext();
             GetInnerJoinResult();
+            GetLeftOuterJoinResult();
         }
     }
 }

@@ -1,0 +1,55 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: aspnet-gateway
+  namespace: default
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: product-virtualservice
+  namespace: default
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - aspnet-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /api/products
+    route:
+    - destination:
+        host: product-service
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: order-virtualservice
+  namespace: default
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - aspnet-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /api/orders
+    route:
+    - destination:
+        host: order-service
+        port:
+          number: 80

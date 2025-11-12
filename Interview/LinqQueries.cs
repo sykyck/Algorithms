@@ -83,6 +83,25 @@ namespace Interview
             return result;
         }
 
+        //inner join
+        public static IEnumerable<dynamic> GetLeftOuterJoinResult()
+        {
+            var result = employeesDataSource.GroupJoin(departmentsDataSource,
+                        emp => emp.DepartmentId,
+                        dept => dept.DepartmentId,
+                        (emp, deptGroup) => new { emp, deptGroup })
+                        .SelectMany(x => x.deptGroup.DefaultIfEmpty(),
+                        (x, dept) => new
+                        {
+                            x.emp.EmployeeId,
+                            x.emp.Name,
+                            DepartmentName = dept != null ? dept.DepartmentName : "No Department",
+                            Location = dept != null ? dept.Location : "No Location"
+                        });
+
+            return result;
+        }
+
         public static void DifferenceBetweenFirstOrDefaultAndFirst()
         {
             try

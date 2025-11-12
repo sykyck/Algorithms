@@ -53,6 +53,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "loki", "loki", "{C3F5FB62-B
 		OpenTelemetry\loki\local-config.yaml = OpenTelemetry\loki\local-config.yaml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Istio", "Istio", "{CAFAC072-E57F-444C-B769-FBBECD5F25E2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "kubernetes", "kubernetes", "{9F53641F-3600-41D1-8D0B-A681A3DABB73}"
+	ProjectSection(SolutionItems) = preProject
+		Istio\kubernetes\gateway.yaml = Istio\kubernetes\gateway.yaml
+		Istio\kubernetes\order-api.yaml = Istio\kubernetes\order-api.yaml
+		Istio\kubernetes\product-api.yaml = Istio\kubernetes\product-api.yaml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductApi", "Istio\src\ProductApi\ProductApi.csproj", "{F085FB1A-4692-43F4-860C-0584E4BEAA03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderApi", "Istio\src\OrderApi\OrderApi.csproj", "{2930BCA3-29D7-469A-AB35-8E1AB7919773}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +122,14 @@ Global
 		{A93E408F-0861-C599-4CA6-01CC9BAFEF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A93E408F-0861-C599-4CA6-01CC9BAFEF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A93E408F-0861-C599-4CA6-01CC9BAFEF9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F085FB1A-4692-43F4-860C-0584E4BEAA03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F085FB1A-4692-43F4-860C-0584E4BEAA03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F085FB1A-4692-43F4-860C-0584E4BEAA03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F085FB1A-4692-43F4-860C-0584E4BEAA03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2930BCA3-29D7-469A-AB35-8E1AB7919773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2930BCA3-29D7-469A-AB35-8E1AB7919773}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2930BCA3-29D7-469A-AB35-8E1AB7919773}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2930BCA3-29D7-469A-AB35-8E1AB7919773}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +141,9 @@ Global
 		{E1871A53-D94C-4D15-97C7-5EDEAF57FCEB} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{8790C5D6-9C35-4893-8738-ADFC80F27500} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{C3F5FB62-B3ED-418F-B58D-88A7052805A2} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{9F53641F-3600-41D1-8D0B-A681A3DABB73} = {CAFAC072-E57F-444C-B769-FBBECD5F25E2}
+		{F085FB1A-4692-43F4-860C-0584E4BEAA03} = {CAFAC072-E57F-444C-B769-FBBECD5F25E2}
+		{2930BCA3-29D7-469A-AB35-8E1AB7919773} = {CAFAC072-E57F-444C-B769-FBBECD5F25E2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93BF9D78-1C39-4912-8A57-B8F130C8EEAE}
